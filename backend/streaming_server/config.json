@@ -1,0 +1,7 @@
+{
+    "max_session_number": 1000,
+    "max_session_ttl": "48h",
+    "max_bitrate": "1M",
+    "tls_cert": "",
+    "tls_key": ""
+}
