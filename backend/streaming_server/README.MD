@@ -30,6 +30,10 @@ Settings are variables that setted in the "config.json" file and shouldn't be ch
 
 * `max_bitrate`: Numbers of bits, expressed by strings like "*xx*K" or "*xx*M" for *xx* Kbps or *xx* Mbps.
 
+* `echo_period`: If the server didn't receive any data packet in a SignalChannel (WebSocket connection), for `echo_period` seconds, the server shall send an `echo_request` packet.
+
+* `client_timeout`: If the server didn't receive any data packet in a SignalChannel (WebSocket connection), for `client_timeout` seconds, the server shall disconnect from the client.
+
 * `tls_cert` & `tls_key`: String, the path of the tls cert and its private key in the form of PEM.
 
 * `listen_address`: Array of strings. Each element for an IPv4 or IPv6 address. If there is only one valid IPv4 or IPv6 address and it is *0.0.0.0* or *::*, the server will listen to all addresses bind to it.
@@ -71,6 +75,25 @@ Traffics are usually encrypted, so HTTP usually means HTTPS and WebSocket usuall
     * `sendSDPMessage` {client -> server -> the other client}: Send a SPD Offer or an Answer message to the other client. The server may check and reject to relay an invalid message. The *message_body* is the Offer or the Answer.
     
     * `getConnectionOrder` {client -> server}: Get if the current client is the first or second one to connect to the channel. (A simple way to provide an asymmetry) No *message_body*.
+
+    * `showConnectionOrder` {server -> client}: Reply of `getConnectionOrder`. The *message_body* is number *1* or *2*.
+
+    * `echo_request` {client -> server} or {server -> client}: Request for an `echo_reply`. When received an `echo_request`, the client or server shall send back an `echo_reply`. The *message_body* contains the current unix timestamp in milliseconds (mumber of milliseconds since January 1, 1970 00:00:00 UTC) based on the requester's clock. The *message_body* shall be:
+
+        ```typescript
+        {
+            request_send_time: number
+        }
+        ```
+
+    * `echo_reply` {server -> client} or {client -> server}: Reply of `echo_request`. The message shall be sent to the client or server who sent the request. The *message_body* shall contain `request_send_time` in the `echo_request` body and `reply_send_time` represents to the current unix timestamp in milliseconds (mumber of milliseconds since January 1, 1970 00:00:00 UTC) based on the replyer's clock.
+
+        ```typescript
+        {
+            request_send_time: number,
+            reply_send_time: number,
+        }
+        ```
 
     * `hangUp` {client -> server -> the other client}: Hang up and destroy the session. After sending or relaying this message, the current client or server shall immediately close the WebSocket session and the WebRTC session if it is a client. Permission for accessing a TURN server may be withdrawed by the streaming server immediately. No *message_body*.
 
