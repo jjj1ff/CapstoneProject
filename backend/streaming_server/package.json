@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@types/koa": "^2.13.9",
+    "@types/koa-router": "^7.4.5",
+    "@types/ws": "^8.5.10",
+    "koa": "^2.14.2",
+    "koa-router": "^11.0.2",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "type": "module"
+}

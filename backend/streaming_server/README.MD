@@ -17,12 +17,18 @@ A streaming server shall has a TLS certificate and all communications shall unde
 
 ## For Developers
 
+Please download and install [Node JS](https://nodejs.org/en/download/current) first,
+the version must be greater than 16.13.
 
+(Optionl) After that, install [pnpm](https://pnpm.io/installation#using-corepack).
 
+Run `pnpm -i` or `npm install` at the same dir as tsconfig.json.
+
+To launch the server, run `node .\run\main.js`.
 
 ## Settings
 
-Settings are variables that setted in the "config.json" file and shouldn't be changed during run time. The "config.json" file should be correctly setted. Descriptions for each of the variables are below:
+Settings are variables that setted in the "config.json" file and shouldn't be changed during run time. The "config.json" file should be correctly setted. "template_config.json" is a template of "config.json". Descriptions for each of the variables are below:
 
 * `max_session_number`: Integer, the max number of sessions of the current server instance. A server shall reject creating sessions while the number of sessions is over the variable.
 
