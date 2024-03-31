@@ -1,6 +1,8 @@
 {
     "max_session_number": 1000,
     "max_session_ttl": "48h",
+    "echo_period": 50,
+    "client_timeout": 120,
     "max_bitrate": "1M",
     "tls_cert": "",
     "tls_key": "",
